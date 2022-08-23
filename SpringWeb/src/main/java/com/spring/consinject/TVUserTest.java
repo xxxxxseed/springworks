@@ -1,4 +1,4 @@
-package com.spring.polymorphism;
+package com.spring.consinject;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
