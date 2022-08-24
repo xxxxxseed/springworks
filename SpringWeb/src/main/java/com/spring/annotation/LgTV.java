@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class LgTV implements TV{
 
 	@Autowired
-	//@Qualifier("apple")	//의존성 주입될 객체의 아이디를 지정할 수 있음
+	//@Qualifier("sony")	//의존성 주입될 객체의 아이디를 지정할 수 있음
 	private Speaker speaker;
 	
 	public LgTV() {
