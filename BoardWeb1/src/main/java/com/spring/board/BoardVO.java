@@ -4,12 +4,12 @@ import java.util.Date;
 
 //자료형(Value Object)
 public class BoardVO {
-	private int bno;
-	private String title;
-	private String writer;
-	private String content;
-	private Date regDate;
-	private int cnt;
+	private int bno;		//글번호
+	private String title;	//제목
+	private String writer;	//작성자
+	private String content;	//내용
+	private Date regDate;	//작성일
+	private int cnt;		//조회수
 	
 	public int getBno() {
 		return bno;

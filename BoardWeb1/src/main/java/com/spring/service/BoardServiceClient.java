@@ -22,9 +22,9 @@ public class BoardServiceClient {
 		
 		//글 쓰기
 		BoardVO vo = new BoardVO();
-		vo.setTitle("안녕하세요");
-		vo.setWriter("우영우");
-		vo.setContent("지인 추천으로 가입했어요");
+		vo.setTitle("한바다4");
+		vo.setWriter("정명석");
+		vo.setContent("한바다 정명석 입니다");
 		//boardDAO.insertBoard(vo);
 		boardService.insertBoard(vo);
 		

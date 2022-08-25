@@ -2,8 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<context:component-scan base-package="com.spring"></context:component-scan>
 
@@ -12,4 +14,29 @@
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 	<bean id="userDAO" class="com.spring.user.UserDAO" />
+	
+	<!-- AOP : 로그 설정 -->
+	<bean id="log" class="com.spring.common.LogAdvice" />
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.spring..*Impl.*(..))" 
+						id="allPointcut"/>
+		<!-- <aop:aspect ref="log">
+			<aop:before method="printLog" pointcut-ref="allPointcut"/>
+		</aop:aspect> -->
+		<aop:pointcut expression="execution(* com.spring..*Impl.get*(..))" 
+						id="getPointcut"/>
+		<aop:aspect ref="log">
+			<aop:before method="printLog" pointcut-ref="getPointcut"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- 
+		조인 포인트: 모든 비즈니스 메소드
+		포인트컷(Pointcut): 필터링 된 조인 포인트임
+		allPointcut은 com.spring으로 시작하는 클래스 이름 중에 
+		Impl로 끝나는 클래스의 모든 메서드를 포인트 컷으로 설정 했음.
+		<aop:aspect> 핵심 관심에 해당하는 포인트 컷 메서드와 횡단 관심에 해당하는 advice
+		메서드를 결합하기 위해 사용한다.
+	-->
 </beans>
