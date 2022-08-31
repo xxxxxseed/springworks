@@ -6,38 +6,41 @@
 	<meta charset="UTF-8">
 	<title>Welcome~</title>
 	<link rel="stylesheet" href="/resources/css/style.css">
-</head>
-<body>
 	<script type="text/javascript">
 		function checkForm(){
-			let form = document.regForm;
+			let form = document.newWrite;		//폼 이름
+			let title = form.title.value;		//제목 입력값
+			let writer = form.writer.value;		//작성자 입력값
+			let content = form.content.value;	//내용 입력값
 			
-			if(form.title.value == ""){
+			if(title == ""){
 				alert("제목을 입력해주세요");
 				form.title.select();
 				return false;
 			}
-			if(form.writer.value == ""){
+			if(writer == ""){
 				alert("작성자를 입력해주세요");
 				form.writer.select();
 				return false;
 			}
-			if(form.content.value == ""){
+			if(content == ""){
 				alert("내용을 입력해주세요");
 				form.content.select();
 				return false;
 			}
-			form.submit();
 		}
 	</script>
+</head>
+<body>
 	<div id="container">
 		<section id="list">
 			<h2>글 쓰기</h2>
-			<form action="/insertBoard" method="post" name=regForm>
+			<form action="/insertBoard" method="post" 
+				onsubmit="return checkForm()" name="newWrite">
 				<table class="tbl_reg">
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="title"></td>
+						<td><input type="text" name="title" placeholder="Title"></td>
 					</tr>
 					<tr>
 						<td>작성자</td>
@@ -46,12 +49,13 @@
 					<tr>
 						<td>내용</td>
 						<td>
-							<textarea name="content" cols="50" rows="10"></textarea>
+							<textarea name="content" cols="50" rows="10"
+								placeholder="Content"></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="button" value="등록" onclick="checkForm()">
+							<input type="submit" value="등록">
 							<a href="/boardList"><input type="button" value="목록"></a>
 						</td>
 					</tr>

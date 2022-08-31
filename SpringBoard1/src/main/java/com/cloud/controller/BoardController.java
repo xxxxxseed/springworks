@@ -63,8 +63,9 @@ public class BoardController {
 	
 	@GetMapping("/boardView")
 	public String getBoard(int bno, Model model) {	//상세보기 페이지 요청
-		service.updateCount(bno);
-		BoardVO board = service.getBoard(bno);
+		service.updateCount(bno);					//조회수 증가
+		BoardVO board = service.getBoard(bno);		//상세 페이지 처리
+		
 		model.addAttribute("board", board);			//jsp로 board 데이터 보냄
 		return "boardView";
 	}

@@ -103,20 +103,19 @@ public class BoardDAO {
 		try {
 			conn = JDBCUtil.getConnection();
 			//조회수 검색
-			String sql = "SELECT cnt FROM board WHERE bno = ?";
+			/*String sql = "SELECT cnt FROM board WHERE bno = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bno);
 			rs = pstmt.executeQuery();
 			int cnt = 0;
 			if(rs.next()) {
 				cnt = rs.getInt("cnt") + 1;
-			}
+			}*/
 			
 			//조회수 증가
-			sql = "UPDATE board SET cnt =? WHERE bno = ?";
+			String sql = "UPDATE board SET cnt = cnt+1 WHERE bno = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cnt);
-			pstmt.setInt(2, bno);
+			pstmt.setInt(1, bno);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
