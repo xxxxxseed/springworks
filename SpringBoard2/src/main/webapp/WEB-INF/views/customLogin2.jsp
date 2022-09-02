@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,17 +17,12 @@
 		</header>
 		<main class="px-3">
 			<section id="login">
-			<%-- <div class="title">
-				<h2><spring:message code="message.user.login.title" /></h2>
-			</div> --%>
-			<%-- <p class="lang">
-				<a href="customLogin?lang=en">
-					<spring:message code="message.user.login.language.en" />
-				</a>
-				<a href="customLogin?lang=ko">
-					<spring:message code="message.user.login.language.ko" />
-				</a>
-			</p> --%>
+			<h2>로그인</h2>
+			<%-- <c:if test="${error eq 1 }">
+				<p class="error">
+					<c:out value="아이디나 비밀번호를 확인해주세요" />
+				</p>
+			</c:if> --%>
 			<h2 class="error"><c:out value="${error }" /></h2>
 			<form action="/login" method="post">
 				<table class="tbl_login">
@@ -55,5 +49,8 @@
 			<jsp:include page="./footer.jsp" />
 		</footer>
 	</div>
+
+
+
 </body>
 </html>

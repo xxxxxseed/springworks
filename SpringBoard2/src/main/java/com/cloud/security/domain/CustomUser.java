@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.User;
 
 import com.cloud.domain.MemberVO;
 
+import lombok.Getter;
+
+@Getter
 public class CustomUser extends User{	//User를 상속한 Customer 클래스
 
 	private static final long serialVersionUID = 13L;

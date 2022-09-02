@@ -7,7 +7,7 @@
 		<id property="userid" column="userid"/>
 		<result property="userid" column="userid"/>
 		<result property="userpw" column="userpw"/>
-		<result property="userName" column="username"/>
+		<result property="username" column="username"/>
 		<result property="regDate" column="regdate"/>
 		<result property="updateDate" column="updatedate"/>
 		<collection property="authList" resultMap="authMap" />
@@ -32,5 +32,28 @@
 		FROM tbl_member mem, tbl_member_auth auth
 		WHERE mem.userid(+) = auth.userid AND mem.userid = #{userid}
 	</select> -->
+	
+	<!-- 회원 가입 -->
+	<insert id="insertMember" parameterType="com.cloud.domain.MemberVO">
+		INSERT INTO tbl_member(userid, userpw, username, enabled)
+		VALUES (#{userid}, #{userpw}, #{username}, '1')
+	</insert>
+	
+	<!-- 회원 목록 -->
+	<select id="getMemberList" resultMap="memberMap">
+		SELECT * FROM tbl_member ORDER BY regdate DESC
+	</select>
+	
+	<!-- 회원 삭제 -->
+	<delete id="deleteMember">
+		DELETE FROM tbl_member WHERE userid = #{userid}
+	</delete>
+	
+	<!-- 회원 수정 -->
+	<update id="updateMember">
+		UPDATE tbl_member
+		SET userpw = #{userpw}, username = #{username}
+		WHERE userid = #{userid}
+	</update>
 
 </mapper>

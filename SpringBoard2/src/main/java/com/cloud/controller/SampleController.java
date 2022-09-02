@@ -1,5 +1,7 @@
 package com.cloud.controller;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +26,17 @@ public class SampleController {
 	@GetMapping("/admin")
 	public void doAdmin() {
 		log.info("로그인한 관리자만 접근");
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	@GetMapping("/annoMember")
+	public void doMember2() {
+		log.info("로그인한 멤버와 관리자 모두");
+	}
+	
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/annoAdmin")
+	public void doAdmin2(){
+		log.info("로그인한 관리자만");
 	}
 }
