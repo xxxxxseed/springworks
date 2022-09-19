@@ -9,9 +9,16 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- DataSource 설정 - hikari 빈 등록(setter 주입) -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<!-- <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="c##spring" />
+		<property name="password" value="spring" />
+	</bean> -->
+	<!-- log4jdbc-log4j2 설정 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="c##spring" />
 		<property name="password" value="spring" />
 	</bean>
@@ -29,4 +36,9 @@
 	
 	<mybatis-spring:scan base-package="com.cloud.mapper"/>
 	
+	<!-- 파일 업로드 설정, 최대 파일 크기 : 5MB -->
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000" />
+	</bean>
 </beans>

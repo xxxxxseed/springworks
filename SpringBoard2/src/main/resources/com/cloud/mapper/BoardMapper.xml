@@ -4,9 +4,83 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.cloud.mapper.BoardMapper">
+	<!-- 검색 모듈 -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND">
+		    <foreach collection="typeArr" item="type" separator="OR">
+		    	<if test="type=='T'.toString()">
+		    		title LIKE '%'||#{keyword}||'%'
+		    	</if>
+		    	<if test="type=='C'.toString()">
+		    		content LIKE '%'||#{keyword}||'%'
+		    	</if>
+		    	<if test="type=='W'.toString()">
+		    		writer LIKE '%'||#{keyword}||'%'
+		    	</if>
+		    </foreach>
+	    </trim>
+	</sql>
+
 	<!-- id는 메서드, resultType은 반환값 -->
 	<select id="getBoardList" resultType="com.cloud.domain.BoardVO">
 		SELECT * FROM tbl_board ORDER BY bno DESC
+	</select>
+	
+	<!-- 페이지 처리가 되는 목록 보기 -->
+	<select id="getListWithPage" resultType="com.cloud.domain.BoardVO">
+		<![CDATA[
+		SELECT * FROM
+		(
+		    SELECT /*+ INDEX_DESC(tbl_board pk_board) */
+		    ROWNUM rn, bno, title, writer, content, regdate, updatedate, cnt, replycnt
+		    FROM tbl_board
+		    WHERE 
+		]]>    
+		    <!-- 검색 SQL -->
+		    <include refid="criteria" />
+		<![CDATA[    
+		    ROWNUM <= (#{pageNum} * #{amount})
+		)
+		WHERE rn > (#{pageNum}-1) * 10
+		]]>
+	</select>
+	
+	<!-- 총 게시글 수 -->
+	<select id="getTotalCount" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*) FROM tbl_board
+		WHERE
+		]]>
+		<include refid="criteria" />
+		<![CDATA[
+		bno > 0
+		]]>
+	</select>
+	
+	<!-- 게시글 검색(테스트용) -->
+	<select id="searchTest" resultType="com.cloud.domain.BoardVO">
+		<![CDATA[
+			SELECT * FROM tbl_board
+			WHERE 
+		]]>
+			<trim suffix="AND">
+			<foreach collection="map" index="key" item="val"
+					separator="OR" open="(" close=")">
+				<!-- #{key} #{val} -->
+				<if test="key=='T'.toString()">
+					title like #{val}
+				</if>
+				<if test="key=='C'.toString()">
+					content like #{val}
+				</if>
+				<if test="key=='W'.toString()">
+					writer like #{val}
+				</if>
+			</foreach>
+			</trim>
+		<![CDATA[
+			ROWNUM < 20
+		]]>
 	</select>
 	
 	<insert id="insertBoard">
@@ -33,6 +107,13 @@
 	<update id="updateCount" parameterType="int">
 		UPDATE tbl_board
 		SET cnt = cnt + 1
+		WHERE bno = #{bno}
+	</update>
+	
+	<!-- 댓글 개수 -->
+	<update id="updateReplyCnt">
+		UPDATE tbl_board
+		SET replycnt = replycnt + #{amount}
 		WHERE bno = #{bno}
 	</update>
 </mapper>

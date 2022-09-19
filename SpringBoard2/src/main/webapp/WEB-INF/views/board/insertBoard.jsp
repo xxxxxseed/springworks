@@ -42,12 +42,12 @@
 		<main class="px-3">
 			<section id="list">
 			<h2>글 쓰기</h2>
-			<form action="/board/insertBoard" method="post" 
+			<form action="/board/insertBoard?${_csrf.parameterName }=${_csrf.token }" method="post" encType="multipart/form-data"
 				onsubmit="return checkForm()" name="newWrite">
 				<table class="tbl_reg">
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="title" placeholder="Title"></td>
+						<td><input type="text" name="title" placeholder="Title" autofocus></td>
 					</tr>
 					<tr>
 						<td>작성자</td>
@@ -60,6 +60,10 @@
 							<textarea name="content" cols="50" rows="10"
 								placeholder="Content"></textarea>
 						</td>
+					</tr>
+					<tr>
+						<td>업로드</td>
+						<td><input type="file" name="uploadFile"></td>
 					</tr>
 					<tr>
 						<td colspan="2">

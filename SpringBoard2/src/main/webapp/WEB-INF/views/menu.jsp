@@ -58,7 +58,7 @@
 				            <a class="nav-link" href='/member/memberView?userid=<c:out value="${pinfo.username}"/>'>나의정보</a>
 				        </li>
 				    	<li class="nav-item">
-				        	<a class="nav-link" href="/customLogout">로그아웃</a>
+				        	<a class="nav-link" href="/customLogout">(<c:out value="${pinfo.username}" />님)로그아웃</a>
 				        </li>
 				    	<li class="nav-item">
 				        	<a class="nav-link" href="/member/memberList">회원목록</a>
@@ -71,7 +71,7 @@
 				            <ul class="dropdown-menu">
 				            	<li><a class="dropdown-item" href="/">HOME</a></li>
 				            	<li><a class="dropdown-item" href="/member/memberView?userid=<c:out value="${pinfo.username}"/>">나의정보</a></li>
-				            	<li><a class="dropdown-item" href="/customLogout">로그아웃</a></li>
+				            	<li><a class="dropdown-item" href="/customLogout">(<c:out value="${pinfo.username}" />님)로그아웃</a></li>
 				            	<li><a class="dropdown-item" href="/member/memberList">회원목록</a></li>
 				            	<li><a class="dropdown-item" href="/board/boardList">게시판</a></li>
 				            </ul>
