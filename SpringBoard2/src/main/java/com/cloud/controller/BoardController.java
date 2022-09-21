@@ -126,4 +126,40 @@ public class BoardController {
 		rttr.addAttribute("bno", vo.getBno());
 		return "redirect:/board/boardView";
 	}
+	
+	//댓글 삭제 페이지 요청, 해당 댓글 가져오기
+	@GetMapping("/replyDelete")
+	public String replyDeleteView(ReplyVO vo, Model model) {
+		ReplyVO selectReply = replyService.getReply(vo.getRno());
+		model.addAttribute("selectReply",selectReply);
+		
+		return "/board/replyDelete";
+	}
+	
+	//댓글 삭제
+	@PostMapping("/replyDelete")
+	public String replyDelete(ReplyVO vo, RedirectAttributes rttr) {
+		replyService.deleteReply(vo);
+		//bno 보내줌
+		rttr.addAttribute("bno", vo.getBno());
+		return "redirect:/board/boardView";
+	}
+	
+	//댓글 수정 페이지 요청,
+	@GetMapping("/replyUpdate")
+	public String replyUpdateView(ReplyVO vo, Model model) {
+		ReplyVO selectReply = replyService.getReply(vo.getRno());
+		model.addAttribute("selectReply",selectReply);
+		
+		return "/board/replyUpdate";
+	}
+	
+	//댓글 수정
+	@PostMapping("/replyUpdate")
+	public String replyUpdate(ReplyVO vo, RedirectAttributes rttr) {
+		replyService.update(vo);
+		//bno 보내줌
+		rttr.addAttribute("bno", vo.getBno());
+		return "redirect:/board/boardView";
+	}
 }

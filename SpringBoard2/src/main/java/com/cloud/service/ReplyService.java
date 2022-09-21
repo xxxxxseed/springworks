@@ -6,8 +6,18 @@ import com.cloud.domain.ReplyVO;
 
 public interface ReplyService {
 
+	//´ñ±Û ¸ñ·Ï
 	public List<ReplyVO> getReplyList(int bno);
 	
 	//´ñ±Û µî·Ï
 	public void register(ReplyVO vo);
+	
+	//Æ¯Á¤ ´ñ±Û Á¶È¸
+	public ReplyVO getReply(int rno);
+		
+	//´ñ±Û »èÁ¦
+	public void deleteReply(ReplyVO vo);
+	
+	//´ñ±Û ¼öÁ¤
+	public void update(ReplyVO vo);
 }

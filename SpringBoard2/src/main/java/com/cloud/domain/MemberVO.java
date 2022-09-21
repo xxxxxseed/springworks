@@ -17,6 +17,6 @@ public class MemberVO implements Serializable{
 	private String enabled;
 	private Date regDate;
 	private Date updateDate;
-	private List<AuthVO> authList;
+	private List<AuthVO> authList;	//인증 클래스 참조
 
 }

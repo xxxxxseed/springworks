@@ -36,4 +36,23 @@ public class ReplyServiceImpl implements ReplyService{
 		replyMapper.register(vo);
 	}
 
+	//Æ¯Á¤ ´ñ±Û Á¶È¸
+	@Override
+	public ReplyVO getReply(int rno) {
+		return replyMapper.getReply(rno);
+	}
+
+	//´ñ±Û »èÁ¦
+	@Override
+	public void deleteReply(ReplyVO vo) {
+		boardMapper.updateReplyCnt(vo.getBno(), -1);		//-1 - amount
+		replyMapper.deleteReply(vo);
+	}
+
+	//´ñ±Û ¼öÁ¤
+	@Override
+	public void update(ReplyVO vo) {
+		replyMapper.update(vo);
+	}
+
 }

@@ -89,10 +89,16 @@
 				<c:forEach items="${replyList }" var="list">
 					<li>
 						<p>작성자: <c:out value="${list.replyer }" />&nbsp;&nbsp;
-							(작성일: <fmt:formatDate value="${list.replyDate }"
+							(작성일: <fmt:formatDate value="${list.updateDate }"
 										pattern="yyyy-MM-dd HH:mm:ss"/>)
 						</p>
 						<p class="content"><c:out value="${list.reply }" /></p>
+						<c:if test="${pinfo.username eq list.replyer }">
+						<p>
+							<button type="button" class="replyUpdateBtn" data-rno="${list.rno }">수정</button>
+							<button type="button" class="replyDeleteBtn" data-rno="${list.rno }">삭제</button>
+						</p>
+						</c:if>
 					</li>
 				</c:forEach>
 			</ul>
@@ -138,6 +144,28 @@
 			replyForm.attr("action", "/board/reply");
 			replyForm.submit();
 		});
+		
+		//댓글 삭제 페이지 요청
+		$(".replyDeleteBtn").click(function(e){
+			e.preventDefault();		//링크 disable
+			console.log("click...");
+			
+			let rno = $(this).attr("data-rno");	//삭제 버튼
+			
+			location.href = "/board/replyDelete?bno=${board.bno}"
+							+ "&rno=" + rno;
+		});	//click닫기
+		
+		//댓글 수정 페이지 요청
+		$(".replyUpdateBtn").click(function(e){
+			e.preventDefault();		//링크 disable
+			console.log("click...");
+			
+			let rno = $(this).attr("data-rno");	//수정 버튼
+			
+			location.href = "/board/replyUpdate?bno=${board.bno}"
+							+ "&rno=" + rno;
+		});	//click닫기
 	});
 </script>
 

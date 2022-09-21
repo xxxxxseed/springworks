@@ -32,7 +32,7 @@ public class MemberServiceImpl implements MemberService{
 		mapper.insertMember(member);	//member 가입
 		
 		AuthVO auth = new AuthVO();
-		auth.setUserid(member.getUserid());
+		auth.setUserid(member.getUserid());	//기본키값으로 연결
 		auth.setAuth("ROLE_USER");		//권한 변경 처리
 		
 		authMapper.insertMemberAuth(auth);	//auth 부여
